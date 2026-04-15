@@ -19,7 +19,7 @@ export default function ManagerView() {
   const generateDraft = async (employeeId) => {
     setGeneratingFor(employeeId)
     try {
-      await fetch('/api/reviews/generate-draft', {
+      await fetch('https://perfai-backend.onrender.com/api/reviews/generate-draft', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ employee_id: employeeId, cycle_id: 'CYC-2024-H1' })

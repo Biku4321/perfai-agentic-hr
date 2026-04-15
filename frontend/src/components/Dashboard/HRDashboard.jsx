@@ -4,7 +4,7 @@ export default function HRDashboard() {
   const [report, setReport] = useState(null)
   
   useEffect(() => {
-    fetch('/api/hr/dashboard')
+    fetch('https://perfai-backend.onrender.com/api/hr/dashboard')
       .then(r => r.json())
       .then(setReport)
   }, [])

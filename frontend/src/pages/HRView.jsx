@@ -6,7 +6,7 @@ export default function HRView() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/hr/dashboard')
+    fetch('https://perfai-backend.onrender.com/api/hr/dashboard')
       .then(res => res.json())
       .then(data => {
         setDashboard(data)

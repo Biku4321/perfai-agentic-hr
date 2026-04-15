@@ -14,8 +14,8 @@ export default function CycleTracker() {
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/cycle').then(r => r.json()),
-      fetch('/api/cycle/health').then(r => r.json()),
+      fetch('https://perfai-backend.onrender.com/api/cycle').then(r => r.json()),
+      fetch('https://perfai-backend.onrender.com/api/cycle/health').then(r => r.json()),
     ]).then(([c, h]) => {
       setCycle(c)
       setHealth(h)

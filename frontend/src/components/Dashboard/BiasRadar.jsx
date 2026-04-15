@@ -5,7 +5,7 @@ export default function BiasRadar() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/hr/bias-flags')
+    fetch('https://perfai-backend.onrender.com/api/hr/bias-flags')
       .then(r => r.json())
       .then(data => {
         setFlags(data.detected || [])
