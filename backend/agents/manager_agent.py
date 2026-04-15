@@ -13,7 +13,7 @@ from core.effihr_db import (
 )
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-2.5-flash-lite")
+model = genai.GenerativeModel("gemini-2.0-flash-001")
 
 
 def build_employee_context(employee_id: str) -> dict:
@@ -212,7 +212,7 @@ def chat_with_agent(user_message: str, context: dict = None) -> str:
         prompt_text += f"Context: {context}\n\n"
     prompt_text += f"User Message:\n{user_message}"
 
-    chat_model = genai.GenerativeModel("gemini-2.5-flash-lite")
+    chat_model = genai.GenerativeModel("gemini-2.0-flash-001")
     response = chat_model.generate_content(
         prompt_text,
         generation_config={"max_output_tokens": 600}

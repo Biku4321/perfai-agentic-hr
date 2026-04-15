@@ -14,7 +14,7 @@ from core.effihr_db import (
 )
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-2.5-flash-lite")
+model = genai.GenerativeModel("gemini-2.0-flash-001")
 
 
 def generate_self_assessment_points(employee_id: str) -> dict:
@@ -156,7 +156,7 @@ Keep responses under 150 words. Be warm but direct."""
     full_prompt = f"{system}\n\nEmployee Question: {employee_question}"
 
     coach_model = genai.GenerativeModel(
-        "gemini-2.5-flash-lite", 
+        "gemini-2.0-flash-001", 
         system_instruction=system
     )
     
