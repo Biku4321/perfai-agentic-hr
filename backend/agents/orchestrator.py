@@ -213,7 +213,7 @@ Be direct and data-driven.
 
     response = model.generate_content(
         prompt,
-        generation_config=genai.GenerationConfig(max_output_tokens=400)
+        generation_config={"max_output_tokens": 400} 
     )
 
     return {
@@ -223,7 +223,6 @@ Be direct and data-driven.
         "ai_summary": response.text, 
         "invisible_contributors": [f for f in flags if f["type"] == "invisible_contributor"]
     }
-
 
 def predict_completion_risk() -> list:
     """
