@@ -220,7 +220,7 @@ Be direct and data-driven.
         "health": health,
         "bias_flags": flags,
         "nudges_sent": len(nudge_log),
-        "ai_summary": response.text, # FIXED
+        "ai_summary": response.text, 
         "invisible_contributors": [f for f in flags if f["type"] == "invisible_contributor"]
     }
 

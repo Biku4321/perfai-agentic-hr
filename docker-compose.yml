@@ -1,0 +1,207 @@
+version: "3.9"
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  PerfAI — Agentic Performance Layer on effiHR
+#  docker compose up --build
+# ─────────────────────────────────────────────────────────────────────────────
+
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+
+  # ── Backend API (FastAPI + Agents) ─────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: perfai-backend
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      # LLM
+      GEMINI_API_KEY: ${GEMINI_API_KEY:?GEMINI_API_KEY is required}
+
+      # Database — switches automatically between SQLite and Postgres
+      DATABASE_URL: ${DATABASE_URL:-sqlite:///./data/effihr.db}
+
+      # Optional integrations (app works with mock data if omitted)
+      JIRA_BASE_URL:      ${JIRA_BASE_URL:-}
+      JIRA_EMAIL:         ${JIRA_EMAIL:-}
+      JIRA_API_TOKEN:     ${JIRA_API_TOKEN:-}
+      GITHUB_TOKEN:       ${GITHUB_TOKEN:-}
+      CONFLUENCE_BASE_URL: ${CONFLUENCE_BASE_URL:-}
+      CONFLUENCE_TOKEN:   ${CONFLUENCE_TOKEN:-}
+      SLACK_WEBHOOK_URL:  ${SLACK_WEBHOOK_URL:-}
+      SLACK_BOT_TOKEN:    ${SLACK_BOT_TOKEN:-}
+
+      # Server
+      HOST: 0.0.0.0
+      PORT: 8000
+      ENV: ${ENV:-development}
+    volumes:
+      # Persist SQLite database across restarts
+      - perfai-db:/app/data
+      # Hot-reload in development (comment out for production)
+      - ./backend:/app
+    networks:
+      - perfai-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    logging: *default-logging
+    depends_on:
+      chromadb:
+        condition: service_healthy
+
+  # ── Frontend (Nginx serving the SPA) ──────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: perfai-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
+    networks:
+      - perfai-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    logging: *default-logging
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  # ── ChromaDB (Vector store for RAG signal retrieval) ─────────────────────
+  chromadb:
+    image: chromadb/chroma:0.5.20
+    container_name: perfai-chromadb
+    restart: unless-stopped
+    ports:
+      - "8001:8000"
+    volumes:
+      - chromadb-data:/chroma/chroma
+    environment:
+      CHROMA_SERVER_AUTHN_CREDENTIALS: ${CHROMA_TOKEN:-perfai-chroma-secret}
+      CHROMA_SERVER_AUTHN_PROVIDER: chromadb.auth.token_authn.TokenAuthenticationServerProvider
+      IS_PERSISTENT: "TRUE"
+      ANONYMIZED_TELEMETRY: "FALSE"
+    networks:
+      - perfai-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    logging: *default-logging
+
+  # ── PostgreSQL 
+  postgres:
+    image: postgres:16-alpine
+    container_name: perfai-postgres
+    restart: unless-stopped
+    profiles:
+      - postgres   # Only starts with: docker compose --profile postgres up
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB:       ${POSTGRES_DB:-perfai}
+      POSTGRES_USER:     ${POSTGRES_USER:-perfai}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-perfai_secret}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - perfai-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-perfai} -d ${POSTGRES_DB:-perfai}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    logging: *default-logging
+
+  # ── Redis (optional — for caching agent responses + session state) ─────────
+  redis:
+    image: redis:7-alpine
+    container_name: perfai-redis
+    restart: unless-stopped
+    profiles:
+      - redis   # Only starts with: docker compose --profile redis up
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-perfai_redis}
+    volumes:
+      - redis-data:/data
+    networks:
+      - perfai-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "--pass", "${REDIS_PASSWORD:-perfai_redis}", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    logging: *default-logging
+
+  # ── Nginx Reverse Proxy (production routing) ──────────────────────────────
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: perfai-nginx
+    restart: unless-stopped
+    profiles:
+      - production   # Only starts with: docker compose --profile production up
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    networks:
+      - perfai-net
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging: *default-logging
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+
+# ── Named volumes ─────────────────────────────────────────────────────────────
+volumes:
+  perfai-db:
+    driver: local
+    name: perfai_database
+
+  chromadb-data:
+    driver: local
+    name: perfai_chromadb
+
+  postgres-data:
+    driver: local
+    name: perfai_postgres
+
+  redis-data:
+    driver: local
+    name: perfai_redis
+
+# ── Networks ──────────────────────────────────────────────────────────────────
+networks:
+  perfai-net:
+    driver: bridge
+    name: perfai_network

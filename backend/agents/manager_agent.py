@@ -110,7 +110,7 @@ Be specific — cite numbers from the data. Avoid generic phrases like "team pla
         generation_config=genai.GenerationConfig(max_output_tokens=1500)
     )
 
-    draft_text = response.text # <--- FIXED HERE
+    draft_text = response.text 
     update_review_draft(employee_id, cycle_id, draft_text)
 
     return {
@@ -148,7 +148,7 @@ Guidelines:
         generation_config=genai.GenerationConfig(max_output_tokens=200)
     )
 
-    message = response.text # <--- FIXED HERE
+    message = response.text 
     log_nudge(manager_id, "manager", message, "slack", "manager_assistant_agent")
 
     return {
@@ -194,7 +194,7 @@ Also suggest 1 honest area for growth they could mention proactively (shows self
     return {
         "employee_id": employee_id,
         "employee_name": emp["name"],
-        "talking_points": response.text # <--- FIXED HERE
+        "talking_points": response.text
     }
 
 

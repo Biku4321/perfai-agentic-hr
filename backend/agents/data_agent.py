@@ -26,7 +26,7 @@ def aggregate_employee_signals(employee_id: str) -> dict:
     confluence = get_employee_confluence_signals(employee_id)
     slack = get_employee_slack_signals(employee_id)
 
-    # Also check DB signals (may have more recent data)
+    # Check DB signals
     db_signals = get_work_signals(employee_id)
 
     sources_available = []
@@ -93,7 +93,7 @@ Be specific about numbers. Avoid generic phrases. Flag what's exceptional vs ave
         prompt,
         generation_config=genai.GenerationConfig(max_output_tokens=400)
     )
-    return response.text # FIXED
+    return response.text 
 
 
 def aggregate_org_signals() -> dict:
@@ -128,7 +128,7 @@ def aggregate_org_signals() -> dict:
         if "slack" in sources:
             org_data["employees_with_slack"] += 1
 
-        # Flag employees with <2 data sources (review quality risk)
+        # Flag employees with <2 data sources 
         if len(sources) < 2:
             org_data["signal_gaps"].append({
                 "employee_id": emp["id"],

@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Optional
 
-# ChromaDB optional — graceful fallback for hackathon environments
+
 try:
     import chromadb
     from chromadb.utils import embedding_functions

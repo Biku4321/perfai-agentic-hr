@@ -241,7 +241,7 @@ Format: 3 bullet points — Status, Key Risks, Immediate Actions. Be direct."""
         "bias_analysis": bias_results,
         "quality_scores": quality,
         "low_quality_at_risk": low_quality,
-        "ai_executive_summary": response.text, # FIXED
+        "ai_executive_summary": response.text, 
         "nudges_sent": len(get_nudge_log()),
         "historical_bias_flags": get_bias_flags()
     }

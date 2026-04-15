@@ -135,7 +135,7 @@ def detect_invisible_contributors_bias(employees: list, signals_fn) -> list:
 
         invisible_reasons = []
 
-        # Code review mentorship (reviews >> authored)
+        # Code review mentorship 
         prs_reviewed = github.get("prs_reviewed", 0)
         prs_merged = github.get("prs_merged", 0)
         if prs_reviewed > 40 and prs_reviewed > prs_merged * 1.5:

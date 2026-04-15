@@ -66,8 +66,7 @@ Format as JSON with keys: talking_points (array of 5 strings), growth_area (stri
         generation_config=genai.GenerationConfig(max_output_tokens=1000)
     )
 
-    raw = response.text # FIXED
-    # Try to parse JSON, fallback to raw text
+    raw = response.text 
     try:
         import json, re
         json_match = re.search(r'\{[\s\S]*\}', raw)
@@ -163,7 +162,7 @@ Keep responses under 150 words. Be warm but direct."""
         employee_question,
         generation_config=genai.GenerationConfig(max_output_tokens=400)
     )
-    return response.text # FIXED
+    return response.text 
 
 
 def get_peer_comparison_insights(employee_id: str, department: str) -> dict:
