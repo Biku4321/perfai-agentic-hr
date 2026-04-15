@@ -64,7 +64,10 @@ app.add_middleware(
 
     CORSMiddleware,
 
-    allow_origins=["*"],
+    allow_origins=[
+        "https://perfai-agentic-hr.vercel.app", 
+        "http://localhost:3000"                 
+    ],
 
     allow_credentials=True,
 

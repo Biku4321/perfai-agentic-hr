@@ -13,7 +13,7 @@
 *From "system of record" → "intelligent system of action"*
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com)
-[![Claude](https://img.shields.io/badge/Claude-Sonnet_4-CC6B3A?style=flat-square)](https://anthropic.com)
+[![Gemini](https://img.shields.io/badge/Gemini-2.5_Flash_Lite-4285F4?logo=google&logoColor=white)](https://aistudio.google.com)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python)](https://python.org)
 [![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=flat-square&logo=docker)](https://docker.com)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)

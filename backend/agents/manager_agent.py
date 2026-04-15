@@ -208,11 +208,9 @@ def chat_with_agent(user_message: str, context: dict = None) -> str:
     Be concise, specific, and always ground recommendations in data.
     When you don't have data, say so clearly rather than guessing."""
 
-    
     prompt_text = f"System Instructions:\n{system}\n\nUser Message:\n{user_message}"
     if context:
         prompt_text = f"System Instructions:\n{system}\n\nContext: {context}\n\nUser Message:\n{user_message}"
-
 
     chat_model = genai.GenerativeModel("gemini-2.5-flash-lite")
 
