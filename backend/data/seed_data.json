@@ -1,0 +1,115 @@
+{
+  "employees": [
+    {
+      "id": "E001",
+      "name": "Priya Sharma",
+      "role": "Senior Software Engineer",
+      "department": "Engineering",
+      "manager_id": "M001",
+      "team": "Platform",
+      "hire_date": "2022-03-15",
+      "past_ratings": [{"cycle": "2023-H1", "rating": 4.2}, {"cycle": "2023-H2", "rating": 4.5}]
+    },
+    {
+      "id": "E002",
+      "name": "Arjun Mehta",
+      "role": "Software Engineer",
+      "department": "Engineering",
+      "manager_id": "M001",
+      "team": "Platform",
+      "hire_date": "2023-07-01",
+      "past_ratings": [{"cycle": "2023-H2", "rating": 3.8}]
+    },
+    {
+      "id": "E003",
+      "name": "Sara Chen",
+      "role": "Product Manager",
+      "department": "Product",
+      "manager_id": "M002",
+      "team": "Growth",
+      "hire_date": "2021-11-20",
+      "past_ratings": [{"cycle": "2023-H1", "rating": 4.7}, {"cycle": "2023-H2", "rating": 4.6}]
+    },
+    {
+      "id": "E004",
+      "name": "Rohan Das",
+      "role": "DevOps Engineer",
+      "department": "Engineering",
+      "manager_id": "M001",
+      "team": "Infrastructure",
+      "hire_date": "2022-08-10",
+      "past_ratings": [{"cycle": "2023-H1", "rating": 4.0}, {"cycle": "2023-H2", "rating": 4.1}]
+    },
+    {
+      "id": "E005",
+      "name": "Anita Patel",
+      "role": "Sales Executive",
+      "department": "Sales",
+      "manager_id": "M003",
+      "team": "Enterprise",
+      "hire_date": "2022-01-05",
+      "past_ratings": [{"cycle": "2023-H1", "rating": 4.3}, {"cycle": "2023-H2", "rating": 4.4}]
+    }
+  ],
+  "managers": [
+    {"id": "M001", "name": "Vikram Nair", "role": "Engineering Manager", "department": "Engineering"},
+    {"id": "M002", "name": "Neha Kapoor", "role": "Product Director", "department": "Product"},
+    {"id": "M003", "name": "Raj Krishnan", "role": "Sales Manager", "department": "Sales"}
+  ],
+  "goals": [
+    {"id": "G001", "employee_id": "E001", "title": "Ship effiHR v2.0 API redesign", "progress": 90, "cycle": "2024-H1", "due_date": "2024-06-30"},
+    {"id": "G002", "employee_id": "E001", "title": "Mentor 2 junior engineers", "progress": 75, "cycle": "2024-H1", "due_date": "2024-06-30"},
+    {"id": "G003", "employee_id": "E001", "title": "Reduce API latency by 30%", "progress": 100, "cycle": "2024-H1", "due_date": "2024-06-30"},
+    {"id": "G004", "employee_id": "E002", "title": "Complete React migration for dashboard", "progress": 55, "cycle": "2024-H1", "due_date": "2024-06-30"},
+    {"id": "G005", "employee_id": "E002", "title": "Write unit tests for payment module", "progress": 80, "cycle": "2024-H1", "due_date": "2024-06-30"},
+    {"id": "G006", "employee_id": "E003", "title": "Launch mobile onboarding feature", "progress": 100, "cycle": "2024-H1", "due_date": "2024-06-30"},
+    {"id": "G007", "employee_id": "E003", "title": "Increase MAU by 20%", "progress": 85, "cycle": "2024-H1", "due_date": "2024-06-30"},
+    {"id": "G008", "employee_id": "E004", "title": "Migrate to Kubernetes", "progress": 95, "cycle": "2024-H1", "due_date": "2024-06-30"},
+    {"id": "G009", "employee_id": "E005", "title": "Close 12 enterprise deals", "progress": 70, "cycle": "2024-H1", "due_date": "2024-06-30"}
+  ],
+  "work_signals": {
+    "jira": [
+      {"employee_id": "E001", "tickets_closed": 47, "bugs_fixed": 12, "stories_owned": 18, "sprint_velocity": 42, "critical_bugs": 3, "on_time_delivery_pct": 89},
+      {"employee_id": "E002", "tickets_closed": 28, "bugs_fixed": 9, "stories_owned": 11, "sprint_velocity": 28, "critical_bugs": 1, "on_time_delivery_pct": 71},
+      {"employee_id": "E004", "tickets_closed": 34, "bugs_fixed": 5, "stories_owned": 14, "sprint_velocity": 36, "critical_bugs": 0, "on_time_delivery_pct": 94}
+    ],
+    "github": [
+      {"employee_id": "E001", "prs_merged": 31, "prs_reviewed": 54, "lines_added": 8420, "lines_deleted": 3100, "review_comments": 187, "avg_review_turnaround_hrs": 4.2},
+      {"employee_id": "E002", "prs_merged": 19, "prs_reviewed": 22, "lines_added": 4100, "lines_deleted": 1800, "review_comments": 43, "avg_review_turnaround_hrs": 18.5},
+      {"employee_id": "E004", "prs_merged": 24, "prs_reviewed": 31, "lines_added": 5200, "lines_deleted": 2100, "review_comments": 92, "avg_review_turnaround_hrs": 6.8}
+    ],
+    "confluence": [
+      {"employee_id": "E001", "docs_authored": 8, "docs_updated": 14, "pages_viewed_by_others": 320, "comments_received": 45},
+      {"employee_id": "E002", "docs_authored": 2, "docs_updated": 5, "pages_viewed_by_others": 89, "comments_received": 12},
+      {"employee_id": "E003", "docs_authored": 15, "docs_updated": 28, "pages_viewed_by_others": 890, "comments_received": 134},
+      {"employee_id": "E004", "docs_authored": 6, "docs_updated": 11, "pages_viewed_by_others": 210, "comments_received": 38}
+    ],
+    "slack": [
+      {"employee_id": "E001", "messages_in_help_channels": 89, "responses_to_others": 124, "threads_started": 34, "emoji_reactions_given": 210},
+      {"employee_id": "E002", "messages_in_help_channels": 12, "responses_to_others": 31, "threads_started": 8, "emoji_reactions_given": 45},
+      {"employee_id": "E003", "messages_in_help_channels": 67, "responses_to_others": 98, "threads_started": 45, "emoji_reactions_given": 312}
+    ]
+  },
+  "appraisal_cycle": {
+    "id": "CYC-2024-H1",
+    "name": "H1 2024 Performance Review",
+    "start_date": "2024-06-15",
+    "deadline": "2024-06-30",
+    "status": "in_progress",
+    "completion_rate": 42,
+    "reviews": [
+      {"employee_id": "E001", "manager_id": "M001", "status": "pending", "days_overdue": 0},
+      {"employee_id": "E002", "manager_id": "M001", "status": "pending", "days_overdue": 0},
+      {"employee_id": "E003", "manager_id": "M002", "status": "completed", "days_overdue": 0, "final_rating": 4.6},
+      {"employee_id": "E004", "manager_id": "M001", "status": "draft_generated", "days_overdue": 0},
+      {"employee_id": "E005", "manager_id": "M003", "status": "pending", "days_overdue": 0}
+    ]
+  },
+  "attendance": [
+    {"employee_id": "E001", "present_days": 118, "total_days": 120, "late_arrivals": 2},
+    {"employee_id": "E002", "present_days": 110, "total_days": 120, "late_arrivals": 8},
+    {"employee_id": "E003", "present_days": 119, "total_days": 120, "late_arrivals": 1},
+    {"employee_id": "E004", "present_days": 117, "total_days": 120, "late_arrivals": 3},
+    {"employee_id": "E005", "present_days": 115, "total_days": 120, "late_arrivals": 5}
+  ]
+}
