@@ -8,7 +8,7 @@ export default function ManagerView() {
   const MANAGER_ID = 'M001'
 
   useEffect(() => {
-    fetch(`/api/managers/${MANAGER_ID}/team`)
+    fetch(`https://perfai-backend.onrender.com/api/managers/${MANAGER_ID}/team`)
       .then(r => r.json())
       .then(data => {
         setTeam(data)
