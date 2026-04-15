@@ -7,7 +7,7 @@ export default function SelfAssistant({ employeeId }) {
   const generate = async () => {
     setLoading(true)
     try {
-      const res = await fetch(`/api/employees/${employeeId}/self-assessment-help`)
+      const res = await fetch(`https://perfai-backend.onrender.com/api/employees/${employeeId}/self-assessment-help`)
       const data = await res.json()
       setDraft(data)
     } catch (err) {

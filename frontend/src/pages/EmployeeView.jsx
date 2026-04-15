@@ -10,7 +10,7 @@ export default function EmployeeView() {
   const EMP_ID = 'E001'
 
   useEffect(() => {
-    fetch(`/api/employees/${EMP_ID}`)
+    fetch(`https://perfai-backend.onrender.com/api/employees/${EMP_ID}`)
       .then(res => res.json())
       .then(data => {
         setEmployee(data)
