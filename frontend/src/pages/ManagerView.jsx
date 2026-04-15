@@ -24,7 +24,7 @@ export default function ManagerView() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ employee_id: employeeId, cycle_id: 'CYC-2024-H1' })
       })
-      const updatedTeam = await fetch(`/api/managers/${MANAGER_ID}/team`).then(r => r.json())
+      const updatedTeam = await fetch(`https://perfai-backend.onrender.com/api/managers/${MANAGER_ID}/team`).then(r => r.json())
       setTeam(updatedTeam)
     } catch (err) {
       console.error(err)
