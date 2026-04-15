@@ -16,7 +16,7 @@ from core.effihr_db import (
 )
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-2.0-flash-001")
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 
 def analyze_cycle_health() -> dict:

@@ -14,7 +14,7 @@ from connectors.slack_connector import get_employee_slack_signals, detect_team_e
 from core.effihr_db import get_all_employees, get_work_signals
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-2.0-flash-001")
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 def aggregate_employee_signals(employee_id: str) -> dict:
     """
