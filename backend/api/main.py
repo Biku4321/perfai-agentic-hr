@@ -18,6 +18,8 @@ from fastapi import FastAPI, HTTPException
 
 from fastapi.middleware.cors import CORSMiddleware
 
+from core.scheduler import init_scheduler, shutdown_scheduler
+
 from pydantic import BaseModel
 
 from typing import Optional
@@ -81,10 +83,12 @@ app.add_middleware(
 async def startup():
 
     init_db()
-
+    init_scheduler()
     print("✅ PerfAI backend ready")
 
-
+@app.on_event("shutdown")
+async def shutdown():
+    shutdown_scheduler()
 
 
 

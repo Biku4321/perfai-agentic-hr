@@ -208,17 +208,16 @@ def chat_with_agent(user_message: str, context: dict = None) -> str:
     Be concise, specific, and always ground recommendations in data.
     When you don't have data, say so clearly rather than guessing."""
 
-    prompt_text = user_message
+    
+    prompt_text = f"System Instructions:\n{system}\n\nUser Message:\n{user_message}"
     if context:
-        prompt_text = f"Context: {context}\n\n{user_message}"
+        prompt_text = f"System Instructions:\n{system}\n\nContext: {context}\n\nUser Message:\n{user_message}"
 
-    chat_model = genai.GenerativeModel(
-        "gemini-2.5-flash-lite",
-        system_instruction=system
-    )
+
+    chat_model = genai.GenerativeModel("gemini-2.5-flash-lite")
 
     response = chat_model.generate_content(
         prompt_text,
-        generation_config=genai.GenerationConfig(max_output_tokens=600)
+        generation_config={"max_output_tokens": 600} 
     )
-    return response.text 
+    return response.text

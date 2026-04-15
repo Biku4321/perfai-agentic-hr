@@ -153,14 +153,16 @@ Their current cycle data:
 Be specific, encouraging, and ground all advice in their actual data.
 Keep responses under 150 words. Be warm but direct."""
 
+    full_prompt = f"{system}\n\nEmployee Question: {employee_question}"
+
     coach_model = genai.GenerativeModel(
         "gemini-2.5-flash-lite", 
         system_instruction=system
     )
     
     response = coach_model.generate_content(
-        employee_question,
-        generation_config=genai.GenerationConfig(max_output_tokens=400)
+        full_prompt,
+        generation_config={"max_output_tokens": 400} 
     )
     return response.text 
 
